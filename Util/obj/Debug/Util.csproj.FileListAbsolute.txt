@@ -1,0 +1,5 @@
+E:\projects\common\common\Util\bin\Debug\com.caijunxiong.util.dll
+E:\projects\common\common\Util\bin\Debug\com.caijunxiong.util.pdb
+E:\projects\common\common\Util\obj\Debug\com.caijunxiong.util.dll
+E:\projects\common\common\Util\obj\Debug\com.caijunxiong.util.pdb
+E:\projects\common\common\Util\obj\Debug\Util.csprojResolveAssemblyReference.cache

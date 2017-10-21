@@ -1,0 +1,13 @@
+E:\projects\common\common\Dal\bin\Debug\com.caijunxiong.dal.dll.config
+E:\projects\common\common\Dal\bin\Debug\com.caijunxiong.dal.dll
+E:\projects\common\common\Dal\bin\Debug\com.caijunxiong.dal.pdb
+E:\projects\common\common\Dal\bin\Debug\EntityFramework.dll
+E:\projects\common\common\Dal\bin\Debug\EntityFramework.SqlServer.dll
+E:\projects\common\common\Dal\bin\Debug\EntityFramework.xml
+E:\projects\common\common\Dal\bin\Debug\EntityFramework.SqlServer.xml
+E:\projects\common\common\Dal\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\projects\common\common\Dal\obj\Debug\Dal.csprojResolveAssemblyReference.cache
+E:\projects\common\common\Dal\obj\Debug\com.caijunxiong.dal.dll
+E:\projects\common\common\Dal\obj\Debug\com.caijunxiong.dal.pdb
+E:\projects\common\common\Dal\bin\Debug\StackExchange.Redis.dll
+E:\projects\common\common\Dal\bin\Debug\StackExchange.Redis.xml

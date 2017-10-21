@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8faa160c8ae9409eb173a5cc795f394e" Name="Diagram1">
+        <EntityTypeShape EntityType="manageModel.Menu" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.MenuPrivilege" Width="1.5" PointX="5.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.Privilege" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.Role" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.Site" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.sysdiagram" Width="1.5" PointX="7.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.SystemPrivilege" Width="1.5" PointX="8.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.Token" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.User" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.UserInfo" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.UserRole" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.UserVerify" Width="1.5" PointX="3" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="manageModel.Config" Width="1.5" PointX="9.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="manageModel.FK_UserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="manageModel.FK_Site_User" ManuallyRouted="false" />
+        <AssociationConnector Association="manageModel.FK_User_Site" ManuallyRouted="false" />
+        <AssociationConnector Association="manageModel.FK_Token_User" ManuallyRouted="false" />
+        <AssociationConnector Association="manageModel.FK_UserInfo_User" ManuallyRouted="false" />
+        <AssociationConnector Association="manageModel.FK_UserRole_User" ManuallyRouted="false" />
+        <AssociationConnector Association="manageModel.FK_UserVerify_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

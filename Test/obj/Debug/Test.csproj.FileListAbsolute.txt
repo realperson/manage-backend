@@ -1,0 +1,16 @@
+E:\projects\common\common\Test\bin\Debug\Test.exe.config
+E:\projects\common\common\Test\bin\Debug\Test.exe
+E:\projects\common\common\Test\bin\Debug\Test.pdb
+E:\projects\common\common\Test\bin\Debug\com.caijunxiong.dal.dll
+E:\projects\common\common\Test\bin\Debug\com.caijunxiong.util.dll
+E:\projects\common\common\Test\bin\Debug\EntityFramework.dll
+E:\projects\common\common\Test\bin\Debug\StackExchange.Redis.dll
+E:\projects\common\common\Test\bin\Debug\com.caijunxiong.dal.pdb
+E:\projects\common\common\Test\bin\Debug\com.caijunxiong.dal.dll.config
+E:\projects\common\common\Test\bin\Debug\com.caijunxiong.util.pdb
+E:\projects\common\common\Test\bin\Debug\EntityFramework.xml
+E:\projects\common\common\Test\bin\Debug\StackExchange.Redis.xml
+E:\projects\common\common\Test\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\projects\common\common\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
+E:\projects\common\common\Test\obj\Debug\Test.exe
+E:\projects\common\common\Test\obj\Debug\Test.pdb
