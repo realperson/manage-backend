@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.SessionState;
+using com.caijunxiong.api.helper.handler;
 using com.caijunxiong.util.assist;
 
 namespace api
@@ -16,6 +17,8 @@ namespace api
     {
         protected void Application_Start()
         {
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new HttpMethodOverrideHandler());
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

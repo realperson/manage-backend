@@ -202,10 +202,10 @@ namespace com.caijunxiong.api.Controllers
 
             pUserName = pUserName.Trim();
             pPassword = Encryption.EncryptPassword(pPassword);
-            User userData = db.Users.FirstOrDefault((r) => r.name == pUserName && r.password == pPassword && r.site_id == siteId);
+            User userData = db.Users.FirstOrDefault((r) => r.name == pUserName && r.password == pPassword && r.site_id == siteId && !r.deleted);
             if (userData == null)
             {
-                //没有该用户
+                //没有该用户(或该用户已被删除)
                 result.success = false;
                 result.msg = "登录失败";
 
@@ -291,43 +291,50 @@ namespace com.caijunxiong.api.Controllers
                                              from r in roleList
                                              where mp.owner_id == r.id && mp.type == "role"
                                              select mp;
-                    List<string> menuIds = new List<string>();
-                    foreach (MenuPrivilege mp in menuPrivilegeQuery)
+                    if (menuPrivilegeQuery.Count() > 0)
                     {
-                        string[] ids = mp.menu_ids.Split(',');
-                        menuIds.AddRange(ids);
+                        List<string> menuIds = new List<string>();
+                        foreach (MenuPrivilege mp in menuPrivilegeQuery)
+                        {
+                            string[] ids = mp.menu_ids.Split(',');
+                            menuIds.AddRange(ids);
+                        }
+                        //根据权限菜单ID获取菜单列表
+                        var menuQuery = from m in db.Menus
+                                        from id in menuIds
+                                        where m.id == int.Parse(id)
+                                        select m;
+                        foreach (Menu m in menuQuery)
+                        {
+                            us.menuIds.Add(m.id);
+                            us.menuCodes.Add(m.code);
+                        }
                     }
-                    //根据权限菜单ID获取菜单列表
-                    var menuQuery = from m in db.Menus
-                                    from id in menuIds
-                                    where m.id == int.Parse(id)
-                                    select m;
-                    foreach (Menu m in menuQuery)
-                    {
-                        us.menuIds.Add(m.id);
-                        us.menuCodes.Add(m.code);
-                    }
+                    
 
                     //获取该用户对应的所有角色拥有的权限
                     var systemPrivilegeQuery = from sp in db.SystemPrivileges
                                                from r in roleList
                                                where sp.owner_id == r.id && sp.type == "role"
                                                select sp;
-                    List<string> privilegeIds = new List<string>();
-                    foreach (SystemPrivilege sp in systemPrivilegeQuery)
+                    if (systemPrivilegeQuery.Count() > 0)
                     {
-                        string[] ids = sp.privilege_ids.Split(',');
-                        privilegeIds.AddRange(ids);
-                    }
-                    //根据权限ID获取权限列表
-                    var privilegeQuery = from p in db.Privileges
-                                         from pid in privilegeIds
-                                         where p.id == int.Parse(pid)
-                                         select p;
-                    foreach (Privilege p in privilegeQuery)
-                    {
-                        us.privilegeIds.Add(p.id);
-                        us.privilegeCodes.Add(p.code);
+                        List<string> privilegeIds = new List<string>();
+                        foreach (SystemPrivilege sp in systemPrivilegeQuery)
+                        {
+                            string[] ids = sp.privilege_ids.Split(',');
+                            privilegeIds.AddRange(ids);
+                        }
+                        //根据权限ID获取权限列表
+                        var privilegeQuery = from p in db.Privileges
+                            from pid in privilegeIds
+                            where p.id == int.Parse(pid)
+                            select p;
+                        foreach (Privilege p in privilegeQuery)
+                        {
+                            us.privilegeIds.Add(p.id);
+                            us.privilegeCodes.Add(p.code);
+                        }
                     }
                 }
 
