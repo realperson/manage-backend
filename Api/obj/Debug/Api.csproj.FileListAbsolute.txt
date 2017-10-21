@@ -71,3 +71,7 @@ E:\projects\common\common\api\bin\System.Diagnostics.DiagnosticSource.dll
 E:\projects\common\common\api\bin\EntityFramework.SqlServer.xml
 E:\projects\common\common\api\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 E:\projects\common\common\api\bin\System.Diagnostics.DiagnosticSource.xml
+E:\projects\common\common\api\bin\System.Web.Cors.dll
+E:\projects\common\common\api\bin\System.Web.Http.Cors.dll
+E:\projects\common\common\api\bin\System.Web.Http.Cors.xml
+E:\projects\common\common\api\bin\zh-Hans\EntityFramework.SqlServer.resources.dll

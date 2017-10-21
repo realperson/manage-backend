@@ -13,6 +13,21 @@ namespace com.caijunxiong.util.assist
     [Serializable]
     public class UserSession
     {
+
+        //---------------用户表(START)
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string name { get; set; }
+
+        /// <summary>
+        /// 网站ID
+        /// </summary>
+        public int site_id { get; set; }
+
+        //---------------用户表
+        //---------------用户表
+
         /// <summary>
         /// ID
         /// </summary>
@@ -28,15 +43,6 @@ namespace com.caijunxiong.util.assist
         /// </summary>
         public string login_type { get; set; }
 
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public string name { get; set; }
-
-        /// <summary>
-        /// 网站ID
-        /// </summary>
-        public int site_id { get; set; }
 
         /// <summary>
         /// 状态(0:正常 1:禁用 2:停用 3:锁定)
@@ -57,6 +63,9 @@ namespace com.caijunxiong.util.assist
         /// 刷新令牌
         /// </summary>
         public string refresh_token { get; set; }
+
+
+
 
         /// <summary>
         /// 菜单ID列表

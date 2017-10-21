@@ -84,7 +84,7 @@ namespace com.caijunxiong.api.Controllers
                     if (roleList[i].code == globalConfig.superRole)
                     {
                         isSuper = true;
-//                        break;
+                        break;
                     }
                 }
 
