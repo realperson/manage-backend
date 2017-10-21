@@ -25,7 +25,11 @@ namespace com.caijunxiong.util.assist
         /// </summary>
         public string userSessionKey = "UserSession";
 
-        
+
+        /// <summary>
+        /// 默认token类型
+        /// </summary>
+        public string defaultTokenType = "Bearer";
 
         /// <summary>
         /// token有效时间(小时)

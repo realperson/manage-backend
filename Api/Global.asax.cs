@@ -40,8 +40,10 @@ namespace api
             string cacheDefaultDb = ConfigurationManager.AppSettings["Config:CacheDefaultDb"];
             string cacheSessionKey = ConfigurationManager.AppSettings["Config:cacheSessionKey"];
             string userSessionKey = ConfigurationManager.AppSettings["Config:UserSessionKey"];
+            string defaultTokenType = ConfigurationManager.AppSettings["Config:DefaultTokenType"];//默认token类型
 
-            GlobalConfig config = new GlobalConfig();
+
+               GlobalConfig config = new GlobalConfig();
 
             //保存每种登录类型对应的最大人数
             string[] typeMax = maxUser.Split(',');
@@ -60,6 +62,7 @@ namespace api
             config.cacheDefaultDb = int.Parse(cacheDefaultDb);
             config.cacheSessionKey = cacheSessionKey;
             config.userSessionKey = userSessionKey;
+            config.defaultTokenType = defaultTokenType;
 
 
             Application.Add(Constant.globalConfigKey, config);

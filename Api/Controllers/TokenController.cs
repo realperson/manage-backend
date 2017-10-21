@@ -333,10 +333,9 @@ namespace com.caijunxiong.api.Controllers
 
 
                 //判断数据库是否已存在该登录项
-                List<Token> tokenList = db.Tokens.Where((r) => r.user_id == userData.id).ToList();
+                List<Token> tokenList = db.Tokens.Where((r) => r.user_id == userData.id).OrderBy((r) => r.time).ToList();
                 var query = from t in tokenList
                             where t.login_type == token.login_type
-                            orderby t.time ascending
                             select t;
                 if (query.Count() >= globalConfig.maxUser[token.login_type])
                 {
@@ -402,6 +401,7 @@ namespace com.caijunxiong.api.Controllers
                 {
                     //返回token和权限
                     result.data = new Dictionary<string, string>();
+                    result.data.Add("token_type", globalConfig.defaultTokenType);
                     result.data.Add("access_token", token.token);
                     result.data.Add("refresh_token", token.refresh_token);
                     //result.data.Add("time", token.time.ToString("yyyy-MM-dd HH:mm:ss"));
