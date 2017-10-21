@@ -21,6 +21,13 @@ namespace com.caijunxiong.util.assist
         public string cacheSessionKey = "session";
 
         /// <summary>
+        /// 用户session键名,用于多页面共享数据
+        /// </summary>
+        public string userSessionKey = "UserSession";
+
+        
+
+        /// <summary>
         /// token有效时间(小时)
         /// </summary>
         public int tokenValidTime = 24;

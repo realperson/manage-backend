@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.SessionState;
 using com.caijunxiong.util.assist;
 
 namespace api
@@ -38,6 +39,7 @@ namespace api
             string defaultLoginType = ConfigurationManager.AppSettings["Config:defaultLoginType"];
             string cacheDefaultDb = ConfigurationManager.AppSettings["Config:CacheDefaultDb"];
             string cacheSessionKey = ConfigurationManager.AppSettings["Config:cacheSessionKey"];
+            string userSessionKey = ConfigurationManager.AppSettings["Config:UserSessionKey"];
 
             GlobalConfig config = new GlobalConfig();
 
@@ -57,10 +59,19 @@ namespace api
             config.superRole = superRole;
             config.cacheDefaultDb = int.Parse(cacheDefaultDb);
             config.cacheSessionKey = cacheSessionKey;
-
+            config.userSessionKey = userSessionKey;
 
 
             Application.Add(Constant.globalConfigKey, config);
+        }
+
+        /// <summary>
+        /// 开启Session的可写属性
+        /// </summary>
+        public override void Init()
+        {
+            this.PostAuthenticateRequest += (sender, e) => HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            base.Init();
         }
     }
 }
