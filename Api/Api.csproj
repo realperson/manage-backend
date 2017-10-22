@@ -201,6 +201,7 @@
     <Compile Include="helper\authorize\TokenAuthorizeAttribute.cs" />
     <Compile Include="helper\authorize\TokenVerify.cs" />
     <Compile Include="helper\handler\HttpMethodOverrideHandler.cs" />
+    <Compile Include="helper\pemission\PermissionHelper.cs" />
     <Compile Include="Pages\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

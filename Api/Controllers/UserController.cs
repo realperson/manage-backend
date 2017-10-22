@@ -30,16 +30,23 @@ namespace com.caijunxiong.api.Controllers
 
 
         //---------------------------------------增删查改(START)
-
         /// <summary>
         /// 用户名是否存在
         /// </summary>
         /// <param name="name">用户名</param>
         /// <param name="siteId">网站ID</param>
+        /// <param name="selfId">用户ID</param>
         /// <returns></returns>
-        public bool isExist(string name, int siteId = 0)
+        public bool isExist(string name, int siteId = 0, int? selfId=null)
         {
-            return db.Users.FirstOrDefault((r) => r.name == name && r.site_id == siteId && !r.deleted) != null;
+            if (selfId.HasValue)
+            {
+                return db.Users.FirstOrDefault((r) => r.name == name && r.site_id == siteId && !r.deleted && r.id != selfId.Value) != null;
+            }
+            else
+            {
+                return db.Users.FirstOrDefault((r) => r.name == name && r.site_id == siteId && !r.deleted) != null;
+            }
         }
 
         /// <summary>
@@ -83,17 +90,28 @@ namespace com.caijunxiong.api.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Add()
+        public IHttpActionResult Add(dynamic json)
         {
             Result result = new Result();
             ErrorItem errorItem;
-            if (isAddParamsExist())
+
+            if (json.name == null || json.password == null || json.nickname == null)
+            {
+                result.success = false;
+                result.msg = "添加用户失败";
+
+                errorItem = new ErrorItem();
+                errorItem.code = ErrorCode.param;
+                errorItem.message = "参数不正确";
+                result.errors.Add(errorItem);
+            }
+            else
             {
                 //                UserRole ur = new UserRole();
                 User record = new User();
-                record.name = httpRequest["name"].ToString().Trim().ToLower();
-                record.password = httpRequest["password"].ToString().Trim();
-                record.nickname = httpRequest["nickname"].ToString().Trim();
+                record.name = json.name.ToString().Trim().ToLower();
+                record.password = json.password.ToString().Trim();
+                record.nickname = json.nickname.ToString().Trim();
                 record.site_id = 0;
 
                 //用户名
@@ -242,16 +260,6 @@ namespace com.caijunxiong.api.Controllers
                 //                                    }
                 //                }
             }
-            else
-            {
-                result.success = false;
-                result.msg = "添加用户失败";
-
-                errorItem = new ErrorItem();
-                errorItem.code = ErrorCode.param;
-                errorItem.message = "参数不正确";
-                result.errors.Add(errorItem);
-            }
 
             return Ok(result);
         }
@@ -269,9 +277,162 @@ namespace com.caijunxiong.api.Controllers
 
         // PUT: api/User/5
         [HttpPut]
-        public void Put(dynamic json)
+        public IHttpActionResult Edit(dynamic json)
         {
+            Result result = new Result();
+            ErrorItem errorItem;
 
+            if (json.id == null || json.name == null || json.password == null || json.nickname == null)
+            {
+                result.success = false;
+                result.msg = "修改用户失败";
+
+                errorItem = new ErrorItem();
+                errorItem.code = ErrorCode.param;
+                errorItem.message = "参数不正确";
+                result.errors.Add(errorItem);
+            }
+            else
+            {
+                User record = new User();
+                try
+                {
+                    record.id = int.Parse(json.id.ToString().Trim());
+                }
+                catch (Exception e)
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "id";
+                    errorItem.code = ErrorCode.param;
+                    errorItem.message = "用户id格式不正确";
+                    result.errors.Add(errorItem);
+                }
+                record.name = json.name.ToString().Trim().ToLower();
+                record.password = json.password.ToString().Trim();
+                record.nickname = json.nickname.ToString().Trim();
+
+                //用户名
+                if (record.name.IsEmpty())
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "name";
+                    errorItem.code = ErrorCode.required;
+                    errorItem.message = "用户名不能为空";
+                    result.errors.Add(errorItem);
+                }
+                else if (record.name.Length > 50)
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "name";
+                    errorItem.code = ErrorCode.maxLength;
+                    errorItem.message = "用户名长度不能大于50位";
+                    result.errors.Add(errorItem);
+                }
+                else if (isExist(record.name, record.site_id,record.id))
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "name";
+                    errorItem.code = ErrorCode.exist;
+                    errorItem.message = "用户名已存在";
+                    result.errors.Add(errorItem);
+                }
+
+                //密码
+                if (record.password.IsEmpty())
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "password";
+                    errorItem.code = ErrorCode.required;
+                    errorItem.message = "密码不能为空";
+                    result.errors.Add(errorItem);
+                }
+                else if (record.password.Length > 20)
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "password";
+                    errorItem.code = ErrorCode.maxLength;
+                    errorItem.message = "密码长度不能大于20位";
+                    result.errors.Add(errorItem);
+                }
+                else if (record.password.Length < 6)
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "password";
+                    errorItem.code = ErrorCode.minLength;
+                    errorItem.message = "密码长度不能小于6位";
+                    result.errors.Add(errorItem);
+                }
+                else
+                {
+                    record.password = Encryption.EncryptPassword(record.password);
+                }
+
+                //昵称
+                if (record.nickname.IsEmpty())
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "nickname";
+                    errorItem.code = ErrorCode.required;
+                    errorItem.message = "昵称不能为空";
+                    result.errors.Add(errorItem);
+                }
+                else if (record.nickname.Length > 50)
+                {
+                    result.success = false;
+
+                    errorItem = new ErrorItem();
+                    errorItem.key = "nickname";
+                    errorItem.code = ErrorCode.maxLength;
+                    errorItem.message = "昵称长度不能大于50位";
+                    result.errors.Add(errorItem);
+                }
+
+
+                if (result.success)
+                {
+                    try
+                    {
+                        DbEntityEntry<User> entry = db.Entry<User>(record);
+                        entry.State = EntityState.Unchanged;
+                        entry.Property(a => a.name).IsModified = true;
+                        entry.Property(a => a.password).IsModified = true;
+                        entry.Property(a => a.nickname).IsModified = true;
+                        db.SaveChanges();
+                        result.msg = "修改用户成功";
+                    }
+                    catch (Exception e)
+                    {
+                        result.success = false;
+                        result.msg = "修改用户失败";
+
+                        errorItem = new ErrorItem();
+                        errorItem.message = e.Message;
+                        result.errors.Add(errorItem);
+                    }
+                }
+                else
+                {
+                    result.msg = "修改用户失败";
+                }
+            }
+
+            return Ok(result);
         }
 
         // DELETE: api/User/5
